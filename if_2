@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -f ~/myfile ]
+if [ -f "myfile" ]
 then
 	echo "The file exists"
 else
