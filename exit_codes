@@ -1,0 +1,34 @@
+#!/bin/bash
+read -p "Enter the package name: " package
+echo
+echo 
+rm -rf logs.txt
+{
+echo "--------------------------------------"  
+echo "	PACKAGE DETAILS		    "
+echo "Attempted install of $package"
+echo
+echo
+sudo apt-cache show $package
+echo
+echo
+echo "======================================"
+} > logs.txt
+echo
+sudo apt install $package
+code=$?
+if [ $code -eq 0 ]
+then
+
+echo
+echo
+echo
+	echo "Successfully installed $package"
+else
+
+echo
+echo
+echo
+	echo "Error occured when installing $package exited with a code of $code?"
+		
+fi
