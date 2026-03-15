@@ -1,0 +1,9 @@
+#!/bin/bash
+for current_no in {1..10}
+do 
+	echo $current_no 
+	sleep 1
+done
+
+echo "Done with the loop"
+
