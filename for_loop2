@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for file in ~/Desktop/BASH/*
+do 
+ echo $file
+done

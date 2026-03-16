@@ -1,0 +1,11 @@
+#!/bin/bash
+
+check_status(){
+	if [ $? -ne 0 ]
+	then
+		echo "The exit code is bad"
+	else 
+		echo "The exit code is good"
+	fi
+}
+check_status
