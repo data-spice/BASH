@@ -1,0 +1,57 @@
+#!/bin/bash
+echo "====================================="
+echo "Welcome to the calculator"
+echo "--------------------"
+echo "A demo of case statements"
+echo "--------------------"
+echo "====================================="
+echo "Enter number 1"
+read one
+echo
+echo "Enter number 2"
+read two
+
+echo "What operation do you want to do"
+echo
+
+echo "Addition (+)"
+echo "Subtraction (-)"
+echo "Multiplication (*)"
+echo "Division (/)"
+
+read op
+
+addition(){
+  echo $(( $one + $two));
+}
+
+subtraction(){
+	echo $(( $one - $two));
+}
+
+multiplication(){
+	echo  $(($one * $two));
+}
+
+division(){
+	if [ "$two" -eq 0 ];
+	then
+		echo "Division by zero not allowed"
+	else
+
+		echo "scale=2;  $one / $two" | bc
+	fi
+}
+
+echo 
+echo
+echo "==========="
+echo "RESULTS"
+echo "==========="
+
+case $op in
+	+) addition;;
+	-) subtraction;;
+	\*) multiplication;;
+	/) division;;
+esac
