@@ -8,8 +8,7 @@ echo "====================================="
 echo "Enter number 1"
 read one
 echo
-echo "Enter number 2"
-read two
+read -p "Enter number 2: " two
 
 echo "What operation do you want to do"
 echo
@@ -19,7 +18,7 @@ echo "Subtraction (-)"
 echo "Multiplication (*)"
 echo "Division (/)"
 
-read op
+
 
 addition(){
   echo $(( $one + $two));
@@ -43,6 +42,8 @@ division(){
 	fi
 }
 
+read -p "Enter the operation that you  want: " op
+
 echo 
 echo
 echo "==========="
@@ -54,4 +55,5 @@ case $op in
 	-) subtraction;;
 	\*) multiplication;;
 	/) division;;
+	*) echo "Invalid operation"
 esac
