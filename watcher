@@ -1,0 +1,19 @@
+#!/bin/bash
+
+watch_dir="$HOME/Desktop"
+email="myvicgit@gmail.com"
+
+echo "Watching: $watch_dir"
+
+inotifywait -m -r "$watch_dir" -e create -e modify -e delete |
+while read path action file;
+do 
+message="Desktop change detected
+Action: $action
+File: $file
+Path: $path
+Time: $(date)"
+	 
+	echo "$message"
+	echo -e "Subject: Desktop change alert\n\n$message" | msmtp "$email"
+done

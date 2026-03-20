@@ -1,0 +1,6 @@
+#!/bin/bash
+EMAIL="myvicgit@gmail.com"
+
+MESSAGE="This is a test email on scripting done on $(date)"
+
+echo -e "Subject: Bash Email Test\n\n$MESSAGE" | msmtp "$EMAIL"

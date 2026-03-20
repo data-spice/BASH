@@ -1,0 +1,150 @@
+#!/bin/bash
+
+echo "============================="
+echo "  Welcome to the File finder "
+echo "=============================" 
+echo
+echo "~~~~created by data-spice~~~~"
+
+search_files() {
+    echo "Search Options:"
+    echo "1. Current directory"
+    echo "2. Specific directory"
+    echo "3. System-wide"
+    read -p "Choose option: " opt
+
+    case $opt in
+        1) dir="." ;;
+        2) read -p "Enter directory: " dir ;;
+        3) dir="/" ;;
+        *) echo "Invalid option"; return ;;
+    esac
+
+    read -p "Enter filename or pattern: " name
+
+    if [ ! -d "$dir" ]; then
+        echo "Invalid directory"
+        return
+    fi
+
+    echo "Searching..."
+    if [ "$dir" = "/" ]; then
+        sudo find "$dir" -type f -iname "$name" 2>/dev/null
+    else
+        find "$dir" -type f -iname "$name" 2>/dev/null
+    fi
+}
+
+list_files() {
+    read -p "Enter directory (default .): " dir
+    dir=${dir:-.}
+
+    if [ ! -d "$dir" ]; then
+        echo "Invalid directory"
+        return
+    fi
+
+    ls -lh "$dir"
+}
+
+create_file() {
+    read -p "Enter file name: " file
+    touch "$file"
+    echo "File created"
+}
+
+create_directory() {
+    read -p "Enter directory name: " dir
+    mkdir -p "$dir"
+    echo "Directory created"
+}
+
+delete_item() {
+    read -p "Enter file/directory to delete: " item
+
+    if [ ! -e "$item" ]; then
+        echo "Item does not exist"
+        return
+    fi
+
+    read -p "Are you sure? (y/n): " confirm
+    [ "$confirm" != "y" ] && return
+
+    rm -r "$item"
+    echo "Deleted"
+}
+
+move_item() {
+    read -p "Enter source: " src
+    read -p "Enter destination: " dest
+
+    if [ ! -e "$src" ]; then
+        echo "Source not found"
+        return
+    fi
+
+    mv "$src" "$dest"
+    echo "Moved"
+}
+
+copy_item() {
+    read -p "Enter source: " src
+    read -p "Enter destination: " dest
+
+    if [ ! -e "$src" ]; then
+        echo "Source not found"
+        return
+    fi
+
+    cp -r "$src" "$dest"
+    echo "Copied"
+}
+
+view_file() {
+    read -p "Enter file to view: " file
+
+    if [ ! -f "$file" ]; then
+        echo "File not found"
+        return
+    fi
+
+    less "$file"
+}
+
+# ===== MAIN LOOP =====
+
+while true; do
+    echo "================================="
+    echo "         FILE HANDLER            "
+    echo "================================="
+    echo "1. Search files"
+    echo "2. List directory"
+    echo "3. Create file"
+    echo "4. Create directory"
+    echo "5. Delete file/directory"
+    echo "6. Move/Rename"
+    echo "7. Copy"
+    echo "8. View file"
+    echo "9. Exit"
+    echo "================================="
+
+    read -p "Choose an option: " choice
+
+    case $choice in
+        1) search_files ;;
+        2) list_files ;;
+        3) create_file ;;
+        4) create_directory ;;
+        5) delete_item ;;
+        6) move_item ;;
+        7) copy_item ;;
+        8) view_file ;;
+        9) echo "Exiting..."; break ;;
+        *) echo "Invalid option" ;;
+    esac
+
+    echo
+    read -p "Press Enter to continue..."
+    clear
+done
+
