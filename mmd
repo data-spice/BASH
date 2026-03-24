@@ -1,0 +1,32 @@
+#!/bin/bash
+
+dir_path=$1
+
+if [ -d "$dir_path" ] 
+then
+    echo "Directory exists"
+    echo
+    read -p "Would you like to enter (y/n): " choice
+    if [ "$choice" == "y" ] 
+    then 
+        cd "$dir_path"
+    fi
+else 
+    mkdir "$dir_path"
+    cd "$dir_path"
+fi
+
+if [ "$2" == "-g" ] 
+then
+    
+    git init 
+    echo
+    echo "Git repository initialized"
+fi
+echo 
+echo "=============="
+echo "Operation done"
+echo "=============="
+
+    
+
