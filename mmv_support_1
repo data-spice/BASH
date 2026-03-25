@@ -1,0 +1,5 @@
+#!/bin/bash
+
+place=$1
+
+cd "$place"
