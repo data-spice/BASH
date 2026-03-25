@@ -1,6 +1,7 @@
 #!/bin/bash
 
 dir_path=$1
+brname=$3
 
 if [ -d "$dir_path" ] 
 then
@@ -9,24 +10,39 @@ then
     read -p "Would you like to enter (y/n): " choice
     if [ "$choice" == "y" ] 
     then 
-        cd "$dir_path"
+        bash ~/Desktop/BASH/mmv_support_1 "$dir_path"
+	exit 0
     fi
 else 
     mkdir "$dir_path"
     cd "$dir_path"
 fi
 
-if [ "$2" == "-g" ] 
-then
-    
-    git init 
-    echo
-    echo "Git repository initialized"
+if [ "$2" == "-g" ]; then 
+    if [ -d ".git" ]; then
+        echo "Git already initialized"
+    else
+         git init
+         echo
+         echo "Git initialized successfully"
+    fi
 fi
+
+if [ $brname ]; then
+    git branch -m master "$brname"
+    git add .
+    echo
+    echo "Changed branch name to $brname"
+fi
+
 echo 
 echo "=============="
 echo "Operation done"
 echo "=============="
+
+source ~/Desktop/BASH/mmv_support_1 "$dir_name"
+
+
 
     
 
